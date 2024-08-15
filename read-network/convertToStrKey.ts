@@ -2,7 +2,7 @@ import {PublicKey} from "@solana/web3.js"
 
 const publicKeyUintArray = new Uint8Array([
     
-        //<your public key>
+        //<your public key 58 numbers array>
       
 ])
 
