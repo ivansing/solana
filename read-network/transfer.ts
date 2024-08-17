@@ -1,8 +1,7 @@
-import * as dotenv from 'dotenv'
+// import * as dotenv from 'dotenv'
+import 'dotenv/config'
 import { Connection, Transaction, SystemProgram, sendAndConfirmTransaction, PublicKey, Keypair } from "@solana/web3.js"
 import { convertSOLToUSD } from './utils/priceUtils'
-
-dotenv.config({ path: '../.env' })
 
 const secretKeyStr = process.env.SECRET_KEY
 
