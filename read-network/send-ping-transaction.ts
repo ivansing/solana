@@ -1,8 +1,7 @@
-// import * as dotenv from "dotenv"
 import 'dotenv/config'
 import * as web3 from "@solana/web3.js"
-import { airdropIfRequired } from "@solana-developers/helpers"
 import { conn } from './connect'
+import { airdropsFill } from './utils/airdropsFill'
 
 // CONSTANTS ADDRESSES
 const secretKeyStr = process.env.SECRET_KEY2
@@ -42,31 +41,15 @@ const performTrasaction = async () => {
 
         const connection = conn()
 
-        let success = false
-        let attempts = 0
-        const maxAttempts = 3
+        // Check SOL balance
+        const balance = await connection.getBalance(payer.publicKey);
+        console.log(`🔍 Current SOL balance: ${balance / web3.LAMPORTS_PER_SOL} SOL`)
 
-        // while (!success && attempts < maxAttempts) {
-        //     attempts++
-        //     try {
-        //         const newBalance = await airdropIfRequired(
-        //             connection,
-        //             payer.publicKey,
-        //             1 * web3.LAMPORTS_PER_SOL,
-        //             0.5 * web3.LAMPORTS_PER_SOL,
-        //         );
-        //         success = true
-        //         console.log(`✅ Airdrop successful on attempt ${attempts}`)
-        //     } catch (airdropError) {
-        //         console.warn(`⚠️ Airdrop attempt ${attempts} failed: ${airdropError.message}`)
-        //         if (attempts >= maxAttempts) {
-        //             throw new Error('Exceeded maximum airdrop attempts');
-
-        //         }
-        //     }
-        // }
-
-
+        if(balance < 0.5 * web3.LAMPORTS_PER_SOL) {
+            console.log(`⚠️ Low balance detected. Initiating airdrop...`);
+            await airdropsFill(payer)
+        }
+        
         const transaction = new web3.Transaction()
         const programId = PING_PROGRAM_ADDRESS
         const pingProgramDataId = PING_PROGRAM_DATA_ADDRESS
