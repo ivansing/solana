@@ -20,3 +20,5 @@ const sendSol = async (event: any ) => {
     const signature = sendTransaction(transaction, connection)
     console.log(signature)
 }
+
+export default sendSol;

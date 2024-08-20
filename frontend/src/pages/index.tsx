@@ -4,6 +4,10 @@ import { AppBar } from "@/components/AppBar"
 import Head from "next/head"
 import { PingButton } from "@/components/PingButton"
 import WalletContextProvider from "@/components/WalletContextProvider"
+import { BalanceDisplay } from "@/components/BalanceDisplay"
+import { InputFormWallet } from "@/components/InputFormWallet"
+
+
 
 const Home: NextPage = (props) => {
   return (
@@ -18,6 +22,8 @@ const Home: NextPage = (props) => {
       <WalletContextProvider>
         <AppBar />
         <div className={styles.AppBody}>
+          <BalanceDisplay />
+          <InputFormWallet />
           <PingButton />
         </div>
       </WalletContextProvider>
