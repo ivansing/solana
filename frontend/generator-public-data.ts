@@ -1,5 +1,5 @@
 import { Keypair } from "@solana/web3.js"
-import fs from 'fs'
+
 
 // Generate a new key ypair for the program ID
 const programKeypair = Keypair.generate()

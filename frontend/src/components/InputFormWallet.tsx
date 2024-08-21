@@ -1,6 +1,7 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react"
 import React, { FC,  useState } from 'react'
 import * as web3 from "@solana/web3.js"
+import styles from '../styles/Home.module.css'
 
 export const InputFormWallet: FC = () => {
     const [amount, setAmount] = useState<string>("")
@@ -59,14 +60,15 @@ export const InputFormWallet: FC = () => {
     }
 
     return (
-        <div>
-          <form onSubmit={handleSubmit}>
+        <div className={styles.AppBody}>
+          <form onSubmit={handleSubmit} className={styles.form}>
           <p>Amount (in SOL) to send:</p>
           <input 
             type="text"
             value={amount}
             onChange={handleAmountChange}
             placeholder="Enter amount"
+            className={`${styles.input} ${styles.formField}`}
           />
           <br />
           <p>Send SOL to:</p>
@@ -75,9 +77,10 @@ export const InputFormWallet: FC = () => {
             value={recipient}
             onChange={handleRecipientChange}
             placeholder="Enter recipient address"
+            className={`${styles.input} ${styles.formField}`}
           />
           <br />
-          <button type="submit">Send SOL</button>
+          <button type="submit" className={`${styles.input} ${styles.formField}`}>Send SOL</button>
           </form>
            
         </div>
