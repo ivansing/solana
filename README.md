@@ -16,4 +16,4 @@ All fundamentals of Solana basic workflow with Solana Blockchain, to build Solan
 
 ## References
 
-(Solana Developers Courses)["https://solana.com/developers/courses"]
+[Solana Developers Courses](https://solana.com/developers/courses)
