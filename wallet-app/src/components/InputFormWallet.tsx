@@ -1,13 +1,13 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react"
-import React, { FC,  useState } from 'react'
+import React, { FC, useState } from 'react'
 import * as web3 from "@solana/web3.js"
 import styles from '../styles/Home.module.css'
 
 export const InputFormWallet: FC = () => {
     const [amount, setAmount] = useState<string>("")
     const [recipient, setRecipient] = useState<string>("")
-    const {connection} = useConnection()
-    const {publicKey, sendTransaction} = useWallet()
+    const { connection } = useConnection()
+    const { publicKey, sendTransaction } = useWallet()
     const [transactionLink, setTransactionLink] = useState<string>("")
 
     const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +21,7 @@ export const InputFormWallet: FC = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
 
-        if(!connection || !publicKey) {
+        if (!connection || !publicKey) {
             console.error("Connection or publickey is not available.")
             return
         }
@@ -39,6 +39,7 @@ export const InputFormWallet: FC = () => {
 
             transaction.add(sendSolInstruction)
 
+
             const signature = await sendTransaction(transaction, connection)
             const explorerUrl = `https://explorer.solana.com/tx/${signature}?cluster=devnet`
             setTransactionLink(explorerUrl)
@@ -50,38 +51,39 @@ export const InputFormWallet: FC = () => {
 
     return (
         <div className={styles.AppBody}>
-          <form onSubmit={handleSubmit} className={styles.form}>
-          <p>Amount (in SOL) to send:</p>
-          <input 
-            type="text"
-            value={amount}
-            onChange={handleAmountChange}
-            placeholder="Enter amount"
-            className={`${styles.input} ${styles.formField}`}
-          />
-          <br />
-          <p>Send SOL to:</p>
-          <input 
-            type="text"
-            value={recipient}
-            onChange={handleRecipientChange}
-            placeholder="Enter recipient address"
-            className={`${styles.input} ${styles.formField}`}
-          />
-          <br />
-          {transactionLink && (
-            <a
-               href={transactionLink}
-               target="_blank"
-               className={styles.transactionLink} 
-            >
-               Check transaction state at Solana Explorer 
-            </a>
-          )}
-          <br />
-          <button type="submit" className={`${styles.input} ${styles.formField}`}>Send SOL</button>
-          </form>
-           
+            <form onSubmit={handleSubmit} className={styles.form}>
+                <p>Amount (in SOL) to send:</p>
+                <input
+                    type="text"
+                    value={amount}
+                    onChange={handleAmountChange}
+                    placeholder="Enter amount"
+                    className={`${styles.input} ${styles.formField}`}
+                />
+                <br />
+                <p>Send SOL to:</p>
+                <input
+                    type="text"
+                    value={recipient}
+                    onChange={handleRecipientChange}
+                    placeholder="Enter recipient address"
+                    className={`${styles.input} ${styles.formField}`}
+                />
+                <br />
+                {transactionLink && (
+                    <a 
+                    href={transactionLink} 
+                    target="_blank"
+                    className={styles.transactionLink}
+                    >
+                        Check transaction at Solana Explorer
+                    </a>
+
+                )}
+                <br />
+                <button type="submit" className={`${styles.input} ${styles.formField}`}>Send SOL</button>
+            </form>
+
         </div>
     )
 }
